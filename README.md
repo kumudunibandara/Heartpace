@@ -9,14 +9,13 @@ This repository contains a micro frontends-based architecture that consists of t
 
 The architecture provides scalability, improves maintainability, and ensures a seamless user experience across the micro frontends.
 
-### Features ###
-* Centralized Error Handling: A Redux store in the host application manages errors across all micro frontends.
-* Theme Propagation: React Context API is used to propagate themes from the host to remote applications.
-* Efficient Data Handling: ag-grid with ServerSideRowModelModule and ServerSideRowModelApiModule is used for infinite  scrolling, backend-based filtering, sorting, and pagination.
-* Mock API with JSON Server: The remoteUsers micro frontend uses json-server to simulate backend CRUD APIs.
-* Vite Module Federation: Code sharing between the three applications using Vite's module federation.
-* Material UI: UI components are styled using Material UI.
-* Unit Testing: Implemented with Vite Test and Jest.
+### Download Demo here ###
+https://drive.google.com/file/d/1RqlGSHp4ekRZ9LxT4YdwRsto_TWB5tdR/view?usp=sharing
+
+### Code Quality, Component Design & Micro Frontend Architecture ###
+To ensure high code quality and maintainability, I have implemented best practices such as ESLint and TypeScript for enforcing consistency and preventing errors. The application follows a modular, component-based architecture, promoting reusability and scalability across micro frontends. React Context API and Redux Toolkit manage state and theme propagation efficiently, while centralized error handling using error boundaries enhances resilience. Ag-Grid Server-Side Row Model optimizes performance by efficiently handling large datasets. Unit testing with Vite Test and Jest ensures code reliability, while selective use of lazy loading and memoization improves rendering performance.
+
+The application is built using a micro frontend architecture, consisting of three independent applications, each with its own responsibilities.This architecture enables scalability, maintainability, and independent deployment, allowing each micro frontend to be developed, updated, and tested separately without impacting the others.
 
 ### Micro Frontends Breakdown ###
 ## Host App ##
@@ -41,10 +40,13 @@ The architecture provides scalability, improves maintainability, and ensures a s
 * Framework: React 19
 * Build Tool: Vite
 * State Management: Redux Toolkit
-* UI Components: Material UI
-* Data Grid: Ag-Grid Enterprise
+* Form validation : Formik and Yup
+* UI Components and styles: Material UI & Emotion
+* Data grid : ag-grid-community, ag-grid-enterprise, ag-grid-react
 * Module Federation: @originjs/vite-plugin-federation
 * Testing: Vite Test, Jest
+* Mock back-end : jason-server
+* Linting : ES Lint
 
 ### Setup and Running Instructions ###
 
@@ -56,20 +58,22 @@ Run the following command in each project (host, remoteUsers, remoteCharts):
 ### Start Each Application ###
 Run the following commands in each project:
 ## Host App ##
-* cd host
+* cd host-app
 * npm install
 * npm run build
 * npm run preview
 
 ## Remote Users ##
-* cd remoteUsers
+* cd remote-users-app
 * npm install
 * npm run build
 * npm run preview
 * npm run start:server (To start jason-server)
 
 ## Remote Charts ##
-* cd remoteCharts
+* cd remote-charts
+* npm install --save-dev @types/redux-mock-store
+* npm install --save-dev @types/jest
 * npm install
 * npm run build
 * npm run preview
@@ -107,7 +111,7 @@ Run tests using:
  Code Review
 
 * Follow best practices for code readability and maintainability.
-* Use Linting tools like ES-Lint to check code complexity.
+* Use Linting tools like ES-Lint to check the code.
 * Ensure all PRs are reviewed before merging.
 
 Other Guidelines
