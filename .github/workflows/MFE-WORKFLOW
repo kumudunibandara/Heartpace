@@ -1,0 +1,44 @@
+name: Deploy Multi-Project Micro Frontends
+
+on:
+  push:
+    branches: [ "main" ]  # Runs on push to main branch
+  pull_request:
+    branches: [ "main" ]  # Runs on pull requests to main
+  workflow_dispatch:  # Allows manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          cd remote-users-app && npm install && cd ..
+          cd remote-charts && npm install --save-dev @types/redux-mock-store && npm install --save-dev @types/jest && npm install && cd ..
+          cd host-app && npm install && cd ..
+
+      - name: Build Projects
+        run: |
+          mkdir public
+          cd remote-users-app && npm run build && mv dist ../public/remote-users && cd ..
+          cd remote-charts-app && npm run build && mv dist ../public/remote-charts && cd ..
+          cd host-app && npm run build && mv dist ../public/host && cd ..
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: public  # Deploy everything inside the `public` folder
