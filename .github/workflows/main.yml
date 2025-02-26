@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "Listing project directories:"
           ls -la
-          for dir in remote-users-app remote-charts-app host-app; do
+          for dir in remote-users-app remote-charts host-app; do
             if [ ! -d "$dir" ]; then
               echo "Error: $dir directory not found!"
               exit 1
@@ -38,14 +38,14 @@ jobs:
       - name: Install Dependencies
         run: |
           cd remote-users-app && npm install --save-dev @types/redux-mock-store && npm install --save-dev @types/jest && npm install && cd ..
-          cd remote-charts-app && npm install && cd ..
+          cd remote-charts && npm install && cd ..
           cd host-app && npm install && cd ..
 
       - name: Build Projects
         run: |
           mkdir -p public
           cd remote-users-app && npm run build && mv dist ../public/remote-users && cd ..
-          cd remote-charts-app && npm run build && mv dist ../public/remote-charts && cd ..
+          cd remote-charts && npm run build && mv dist ../public/remote-charts && cd ..
           cd host-app && npm run build && mv dist ../public/host && cd ..
 
       - name: Deploy to GitHub Pages
