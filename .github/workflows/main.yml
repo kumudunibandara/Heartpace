@@ -24,9 +24,18 @@ jobs:
           node-version: 18
           cache: 'npm'
 
+      - name: Check Project Directories
+        run: |
+          echo "Listing project directories:"
+          ls -la
+          for dir in remote-users-app remote-charts-app host-app; do
+            if [ ! -d "$dir" ]; then
+              echo "Error: $dir directory not found!"
+              exit 1
+            fi
+          done
+
       - name: Install Dependencies
-      - list of directories
-       ls -la
         run: |
           cd remote-users-app && npm install --save-dev @types/redux-mock-store && npm install --save-dev @types/jest && npm install && cd ..
           cd remote-charts-app && npm install && cd ..
@@ -34,7 +43,7 @@ jobs:
 
       - name: Build Projects
         run: |
-          mkdir public
+          mkdir -p public
           cd remote-users-app && npm run build && mv dist ../public/remote-users && cd ..
           cd remote-charts-app && npm run build && mv dist ../public/remote-charts && cd ..
           cd host-app && npm run build && mv dist ../public/host && cd ..
