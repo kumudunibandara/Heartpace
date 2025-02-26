@@ -25,6 +25,8 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
+      - list of directories
+       ls -la
         run: |
           cd remote-users-app && npm install --save-dev @types/redux-mock-store && npm install --save-dev @types/jest && npm install && cd ..
           cd remote-charts-app && npm install && cd ..
