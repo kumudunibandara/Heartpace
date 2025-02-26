@@ -119,4 +119,3 @@ Other Guidelines
 * Follow semantic versioning for releases.
 * Ensure all dependencies are up-to-date. 
 * Always check for security vulnerabilities before release.
-
